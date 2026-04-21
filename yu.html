@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <title>Website Anu</title>
+
+  <style>
+    body {
+      background-image: url("https://images.unsplash.com/photo-1518199266791-5375a83190b7");
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+
+<body class="justify-center flex">
+
+  <main class="bg-white rounded mt-24 p-8 shadow-lg shadow-red-200 animate__animated animate__backInDown">
+
+    <img
+      class="cat-img"
+      src="https://i.imgur.com/8Km9tLL.gif"
+      width="200"
+    />
+
+    <div class="border-b mt-2 border-2"></div>
+
+    <div class="text-center mt-4">
+      <h2 class="title text-red-400 text-xl font-semibold">Hei Namanya siapa,</h2>
+      <p class="question text-2xl font-bold text-gray-700">Mau Ketemu?</p>
+    </div>
+
+    <div class="buttons mt-5 flex justify-around">
+      <button
+        class="btn-yes bg-green-500 rounded text-white text-3xl px-2 py-1 animate__pulse animate__infinite">
+        yes
+      </button>
+
+      <button
+        class="btn-no bg-red-500 rounded text-white text-2xl px-2 py-1">
+        no
+      </button>
+    </div>
+
+    <div class="numbers hidden mt-5 flex justify-center">
+      <a
+        href="https://wa.me/6281234567890"
+        class="bg-green-500 text-white py-1 px-2 rounded text-xl font-bold">
+        Chat disini
+      </a>
+    </div>
+
+  </main>
+
+<script>
+const buttonsContainer = document.querySelector(".buttons");
+const numberContainer = document.querySelector(".numbers");
+const yesButton = document.querySelector(".btn-yes");
+const noButton = document.querySelector(".btn-no");
+const catImg = document.querySelector(".cat-img");
+const title = document.querySelector(".title");
+const question = document.querySelector(".question");
+
+const MAX_IMAGES = 5;
+let play = true;
+let count = 0;
+
+// ✅ GIF STABIL (Imgur)
+let listGambar = [
+  "https://i.imgur.com/8Km9tLL.gif",
+  "https://i.imgur.com/j5q8Z2G.gif",
+  "https://i.imgur.com/3oEjI6S.gif",
+  "https://i.imgur.com/Qr71crq.gif",
+  "https://i.imgur.com/Z7AzH2c.gif",
+  "https://i.imgur.com/l4bQFZQ.gif"
+];
+
+yesButton.addEventListener("click", handleYesClick);
+
+noButton.addEventListener("click", function () {
+  title.classList.add("hidden");
+  question.classList.add("hidden");
+
+  if (play) {
+    count++;
+    const imageIndex = Math.min(count, MAX_IMAGES);
+    changeImage(imageIndex);
+    updateNoButtonText();
+
+    if (count === MAX_IMAGES) {
+      play = false;
+    }
+  }
+});
+
+function handleYesClick() {
+  buttonsContainer.classList.add("hidden");
+  title.classList.add("hidden");
+  question.classList.add("hidden");
+  numberContainer.classList.remove("hidden");
+  changeImage(6);
+}
+
+function generateMessage(count) {
+  const messages = ["no", "hmm?", "yakin?", "klik yes", "huftt..", "<--"];
+  return messages[Math.min(count, messages.length - 1)];
+}
+
+function changeImage(index) {
+  catImg.src = listGambar[index - 1];
+}
+
+function updateNoButtonText() {
+  noButton.innerHTML = generateMessage(count);
+}
+</script>
+
+</body>
+</html>
